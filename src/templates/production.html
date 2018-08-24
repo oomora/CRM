@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <br/>
+</head>
+<body>
+     <hr/>
+     <br/>
+    {%block content%}
+    <h3> Lista de Actividades {{title}}</h3>
+    <form method="POST" action="">
+      {%csrf_token%}
+
+    {{ form|crispy }}
+        <input type="submit" value="Enviar">
+    </form>
+    {% endblock %}
+</body>
+</html>

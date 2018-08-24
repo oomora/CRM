@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <!--- JQuery Date Picker -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+     <br/>
+    {%block content%}
+    <h3>{{title}}</h3>
+    <form method="POST" action="">
+      {%csrf_token%}
+
+    {% if messages %}
+      <ul class="alert alert-success" role="alert">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {{ form|crispy }}
+        <input type="submit" value="Registrar">
+    </form>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+<head lang="en">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    {% block content%}{%csrf_token%}
+     <h3> {{title}}</h3>
+
+    <input type="text" value="Buscando...">
+    <input type="submit" value="Buscar">
+
+    <table class="table table-hover">
+    <thead>
+        <tr scope="col">
+            <th><b>Id</b></th>
+            <th><b>Nombre</b></th>
+            <th><b>Descripcion</b></th>
+            <th><b>Cantidad</b></th>
+            <th><b>Ubicacion</b></th>
+            <th><b>Proveedor</b></th>
+            <th><b>Correo</b></th>
+            <th><b>Acciones</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr scope="row">
+            <td><b>{{ producto.id }}</b></td>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.descripcion}}</td>
+            <td>{{ producto.cantidad }}</td>
+            <td>{{ producto.ubicacion }}</td>
+            <td>{{ producto.proveedor }}</td>
+            <td>{{ producto.email}}</td>
+            {% if producto.image != None%}
+            <td><img src="{{ producto.image.url }}"></td>
+            {% endif%}
+            <td>
+                <a class="btn btn-primary" href="{% url 'edit_product' producto.id %}">Edit</a>
+                <a class="btn btn-danger" href="{% url 'delete_product' producto.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    {% endblock %}
+</body>
+</html>

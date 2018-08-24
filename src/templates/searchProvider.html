@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+<head lang="en">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    {% block content%}{%csrf_token%}
+     <h3> {{title}}</h3>
+
+    <input type="text" value="Buscando...">
+    <input type="submit" value="Buscar">
+
+    <table class="table table-hover">
+    <thead>
+        <tr scope="col">
+            <th><b>Id</b></th>
+            <th><b>Nombre</b></th>
+            <th><b>RFC</b></th>
+            <th><b>Direccion</b></th>
+            <th><b>Productos</b></th>
+            <th><b>Cantidad</b></th>
+            <th><b>Punto Reorden</b></th>
+            <th><b>Acciones</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for proveedor in proveedores %}
+        <tr scope="row">
+            <td><b>{{proveedor.id}}</b></td>
+            <td>{{ proveedor.nombre }}</td>
+            <td>{{ proveedor.rfc}}</td>
+            <td>{{ proveedor.direccion}}</td>
+            <td>{{ proveedor.productos }}</td>
+            <td>{{ proveedor.cantidad }}</td>
+            <td>{{ proveedor.punto_reorden }}</td>
+            <td>
+                <a class="btn btn-primary" href="">Edit</a>
+                <a class="btn btn-danger" href="">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    {% endblock %}
+</body>
+</html>
