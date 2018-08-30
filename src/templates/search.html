@@ -36,7 +36,7 @@
             <td>{{ producto.ubicacion }}</td>
             <td>{{ producto.proveedor }}</td>
             <td>{{ producto.email}}</td>
-            {% if producto.image != None%}
+            {% if producto.image %}
             <td><img src="{{ producto.image.url }}"></td>
             {% endif%}
             <td>

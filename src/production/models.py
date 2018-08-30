@@ -4,6 +4,8 @@ from django.db import models
 
 # Create your models here.
 class Activity(models.Model):
+    class Meta:
+        verbose_name_plural='Activities'
     activityName        = models.CharField(max_length=120,blank=True,null=True)
     activityStandardTime= models.IntegerField(default=0)
     activityTime        = models.IntegerField(default=0)
