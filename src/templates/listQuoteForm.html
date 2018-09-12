@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+<head lang="en">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    {% block content%}{%csrf_token%}
+     <h3> {{title}} </h3>
+
+    <input type="text" value="Buscando...">
+    <input type="submit" value="Buscar">
+
+    <table class="table table-hover">
+    <thead>
+        <tr scope="col">
+            <th><b>Folio</b></th>
+            <th><b>Partida</b></th>
+            <th><b>Unidad</b></th>
+            <th><b>Peso</b></th>
+            <th><b>Descripcion</b></th>
+            <th><b>Precio</b></th>
+            <th><b>Subtotal</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for line in object_list %}
+        <tr scope="row">
+            <td><b>{{ line.row }}</b></td>
+            <td>{{ line.unity }}</td>
+            <td>{{ line.weigth}}</td>
+            <td>{{ line.description }}</td>
+            <td>{{ line.price }}</td>
+            <td>{{ line.rowTotal }}</td>
+            <td>{{ producto.email}}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'edit_product' line.id %}">Edit</a>
+                <a class="btn btn-danger" href="{% url 'delete_product' line.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+         <!-- Paginacion de los elementos -->
+
+     <!--<nav aria-label="...">-->
+        <!--<ul class="pager pagination-sm">-->
+            <!--{% if line.has_previous %}-->
+                <!--<li><a href="?page={{ productos.previous_page_number }}"> <span aria-hidden="true">&larr;</span>Previa </a></li>-->
+            <!--{% endif %}-->
+            <!--{% if line.has_next %}-->
+                <!--<li><a href="?page={{ productos.next_page_number }}"> Siguiente<span aria-hidden="true">&rarr;</span></a></li>-->
+            <!--{% endif %}-->
+
+            <!--<span class="label label-primary">-->
+                <!--Pagina <span class="badge badge-pill badge-light"> {{ line.number }} </span> de <span class="badge badge-pill badge-light">{{ productos.paginator.num_pages }}</span>-->
+            <!--</span>-->
+        <!--</ul>-->
+    <!--</nav>-->
+    {% endblock %}
+</body>
+</html>

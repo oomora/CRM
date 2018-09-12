@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 
-from views import *
+from models import Activity
+from forms import ActivityForm
 
 # Register your models here.
 class AdminActivities(admin.ModelAdmin):

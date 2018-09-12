@@ -42,7 +42,7 @@
     </div>
     <br>
     {% if messages %}
-      <ul class="alert alert-success" role="alert">
+      <ul class="alert alert-success" data-dismiss="alert" role="alert">
         {% for message in messages %}
           <li class="{{ message.tags }}">{{ message }}</li>
         {% endfor %}

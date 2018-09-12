@@ -5,6 +5,9 @@ from django.core.urlresolvers import reverse_lazy
 from .forms import ContactRegisterModelForm, ProductRegisterModelForm, ProviderRegisterModelForm
 from .models import ProductRegister, ProviderRegister, ContactRegister, CategoryCatalogue
 
+#Pagination for the products
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
@@ -77,7 +80,20 @@ def provider(request):
 
 def search(request):
     title = ":: CRM List Products page ::"
+
     productos = ProductRegister.objects.all().order_by("id")
+    paginator = Paginator(productos, 10)
+
+    page = request.GET.get('page')
+
+    try:
+        productos = paginator.page(page)
+    except PageNotAnInteger:
+        # raise PageNotAnInteger('Pagina no es un numero, generamos la el primer objeto de la pagina')
+        productos = paginator.page(1)
+    except EmptyPage:
+        # raise EmptyPage('No existen registros asociados a la pagina solicitada')
+        productos = paginator.page(paginator.num_pages)
 
     contexto= {
         "title" : title,
@@ -133,8 +149,3 @@ def delete(request, id):
         return redirect('search')
 
     return render(request, 'delete.html', {'producto':producto})
-
-
-#def to_serialize(obj):
-#   return {'nombre': obj.nombre , 'descripcion': obj.descripcion, 'cantidad': obj.cantidad, 'ubicacion': obj.ubicacion,'proveedor': obj.proveedor,  'email':obj.email}
-

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'production', #activities project
     'users',  #users
     'reports', #reports app
+    'purchase',# purchase app
     'warehouse', #base project
 ]
 

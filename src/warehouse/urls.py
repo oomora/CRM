@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from products import views
+
 #from views import index, contact
 #from production import views
 
@@ -27,6 +28,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
     url(r'^production/', include('production.urls'), name='production'),
+    url(r'^purchase/', include('purchase.urls'), name='purchase'),
     url(r'^users/', include('users.urls'), name='users'),
     url(r'^reports/', include('reports.urls'), name='reports'),
     url(r'^contact/$', views.contact, name='contact'),
@@ -36,7 +38,6 @@ urlpatterns = [
     url(r'^edit/(?P<id>\d+)/$',views.edit, name='edit_product'),
     url(r'^delete/(?P<id>\d+)/$',views.delete, name='delete_product'),
     url(r'^provider/$', views.provider, name='provider'),
-    #url(r'^search2/$',views.search2.as_view()),
 ]
 
 if settings.DEBUG:

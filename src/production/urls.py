@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from production import views
+#from views import ActivityCreate
 
 urlpatterns = [
     #url(r'^create/$', views.ActivityCreate, name='activityCreate'),

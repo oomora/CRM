@@ -47,6 +47,22 @@
         {% endfor %}
     </tbody>
     </table>
+         <!-- Paginacion de los elementos -->
+
+     <nav aria-label="...">
+        <ul class="pager pagination-sm">
+            {% if productos.has_previous %}
+                <li><a href="?page={{ productos.previous_page_number }}"> <span aria-hidden="true">&larr;</span>Previa </a></li>
+            {% endif %}
+            {% if productos.has_next %}
+                <li><a href="?page={{ productos.next_page_number }}"> Siguiente<span aria-hidden="true">&rarr;</span></a></li>
+            {% endif %}
+
+            <span class="label label-primary">
+                Pagina <span class="badge badge-pill badge-light"> {{ productos.number }} </span> de <span class="badge badge-pill badge-light">{{ productos.paginator.num_pages }}</span>
+            </span>
+        </ul>
+    </nav>
     {% endblock %}
 </body>
 </html>
