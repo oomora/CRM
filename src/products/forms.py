@@ -18,19 +18,23 @@ class ProductRegisterModelForm(forms.ModelForm):
         self.helper.form_method = 'POST'
         self.helper.form_tag = True
         self.helper.form_action = 'index'
-        self.helper.form_class = 'form-inline'
+        #self.helper.form_class = 'form-inline'
         self.helper.layout = Layout(
             Div(
-                Div('nombre', css_class='col-sm-7'),
+                Div('nombre', css_class='col-sm-5'),
                 Div('descripcion', css_class='col-sm-5'),
+                Div('categoria', css_class='col-md-2'), css_class='row'
+            ),
+            Div(
                 Div('cantidad_minima', css_class='col-sm-2'),
                 Div('cantidad_maxima', css_class='col-sm-2'),
                 Div('punto_reorden', css_class='col-sm-2'),
                 Div('ubicacion', css_class='col-md-2'),
-                Div('proveedor', css_class='col-md-2'),
-                Div('sku', css_class='col-md-2'),
-                Div('categoria', css_class='col-md-3'),
-                Div('fecha_ingreso', css_class='col-md-3', css_id='fecha_ingreso'),
+                #Div('proveedor', css_class='col-md-2')
+                Div('fecha_ingreso', css_class='col-md-2', css_id='fecha_ingreso'),
+                Div('sku', css_class='col-md-2'), css_class='row'
+            ),
+            Div(
                 Div('image', css_class='col-md-2'), css_class='row'
             ),
             Div(
