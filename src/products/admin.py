@@ -5,7 +5,7 @@ from .models import ProductRegister, ContactRegister, ProviderRegister, Category
 
 
 class AdminProductRegister(admin.ModelAdmin):
-    list_display =  ["nombre", "descripcion", "cantidad", "ubicacion", "proveedor", "fechaIngreso","email", "image"]
+    list_display =  ["nombre", "descripcion", "cantidad_minima","cantidad_maxima", "ubicacion", "proveedor","sku", "fecha_ingreso","categoria", "image"]
     search_fields = ('nombre', 'descripcion')
     form = ProductRegisterModelForm
 
@@ -20,7 +20,7 @@ class AdminProviderRegister(admin.ModelAdmin):
     form = ProviderRegisterModelForm
 
 class AdminCategoryCatalogue(admin.ModelAdmin):
-    list_display = ["name", "categoryNumber"]
+    list_display = ["category_number","category_name"]
 
 admin.site.register(ProductRegister, AdminProductRegister)
 admin.site.register(ContactRegister, AdminContactRegister)

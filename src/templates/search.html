@@ -5,64 +5,80 @@
 <head lang="en">
     <meta charset="UTF-8">
 </head>
+    <body>
+        {% block content%}{%csrf_token%}
+        <br>
+        <br>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{title}}</h3>
+            </div>
+          <div class="panel-body">
+            <input type="text" value="Buscando...">
+            <input type="submit" value="Buscar">
+            <div class="table-responsive-sm">
+                <table class="table table-bordered">
+                <thead>
+                    <tr scope="col">
+                        <th class="col-sm text-center"><b>Id</b></th>
+                        <th class="col-sm text-center"><b>Nombre</b></th>
+                        <th class="col-sm text-center"><b>Descripcion</b></th>
+                        <th class="col-sm text-center"><b>Sku</b></th>
+                        <th class="col-sm text-center"><b>Cantidad Maxima</b></th>
+                        <th class="col-sm text-center"><b>Cantidad Minima</b></th>
+                        <th class="col-sm text-center"><b>Punto Reorden</b></th>
+                        <th class="col-sm text-center"><b>Ubicacion</b></th>
+                        <th class="col-sm text-center"><b>Proveedor</b></th>
+                        <th class="col-sm text-center"><b>Fecha Ingreso</b></th>
+                        <th class="col-sm text-center"><b>Categoria</b></th>
+                        <th class="col-sm-2 text-center"><b>Acciones</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr scope="row">
+                        <td class="col-sm text-center"><b>{{ producto.id }}</b></td>
+                        <td class="col-sm text-center">{{ producto.nombre }}</td>
+                        <td class="col-sm text-center">{{ producto.descripcion}}</td>
+                        <td class="col-sm text-center">{{ producto.sku}}</td>
+                        <td class="col-sm text-center">{{ producto.cantidad_maxima }}</td>
+                        <td class="col-sm text-center">{{ producto.cantidad_minima }}</td>
+                        <td class="col-sm text-center">{{ producto.punto_reorden }}</td>
+                        <td class="col-sm text-center">{{ producto.ubicacion }}</td>
+                        <td class="col-sm text-center">{{ producto.proveedor }}</td>
+                        <td class="col-sm text-center">{{ producto.fecha_ingreso}}</td>
+                        <td class="col-sm text-center">{{ producto.categoria}}</td>
+                        {% if producto.image %}
+                        <td><img src="{{ producto.image.url }}"></td>
+                        {% endif%}
+                        <td class="col-sm text-center">
+                            <a class="btn btn-primary" href="{% url 'edit_product' producto.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a class="btn btn-danger" href="{% url 'delete_product' producto.id %}"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div> <!-- Table responsive -->
+          </div> <!-- Panel Body -->
+        </div> <!-- Panel -->
 
-<body>
-    {% block content%}{%csrf_token%}
-     <h3> {{title}}</h3>
+        <!-- Paginacion de los elementos -->
 
-    <input type="text" value="Buscando...">
-    <input type="submit" value="Buscar">
+         <nav aria-label="...">
+            <ul class="pager pagination-sm">
+                {% if productos.has_previous %}
+                    <li><a href="?page={{ productos.previous_page_number }}"> <span aria-hidden="true">&larr;</span>Previa </a></li>
+                {% endif %}
+                {% if productos.has_next %}
+                    <li><a href="?page={{ productos.next_page_number }}"> Siguiente<span aria-hidden="true">&rarr;</span></a></li>
+                {% endif %}
 
-    <table class="table table-hover">
-    <thead>
-        <tr scope="col">
-            <th><b>Id</b></th>
-            <th><b>Nombre</b></th>
-            <th><b>Descripcion</b></th>
-            <th><b>Cantidad</b></th>
-            <th><b>Ubicacion</b></th>
-            <th><b>Proveedor</b></th>
-            <th><b>Correo</b></th>
-            <th><b>Acciones</b></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for producto in productos %}
-        <tr scope="row">
-            <td><b>{{ producto.id }}</b></td>
-            <td>{{ producto.nombre }}</td>
-            <td>{{ producto.descripcion}}</td>
-            <td>{{ producto.cantidad }}</td>
-            <td>{{ producto.ubicacion }}</td>
-            <td>{{ producto.proveedor }}</td>
-            <td>{{ producto.email}}</td>
-            {% if producto.image %}
-            <td><img src="{{ producto.image.url }}"></td>
-            {% endif%}
-            <td>
-                <a class="btn btn-primary" href="{% url 'edit_product' producto.id %}">Edit</a>
-                <a class="btn btn-danger" href="{% url 'delete_product' producto.id %}">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    </table>
-         <!-- Paginacion de los elementos -->
-
-     <nav aria-label="...">
-        <ul class="pager pagination-sm">
-            {% if productos.has_previous %}
-                <li><a href="?page={{ productos.previous_page_number }}"> <span aria-hidden="true">&larr;</span>Previa </a></li>
-            {% endif %}
-            {% if productos.has_next %}
-                <li><a href="?page={{ productos.next_page_number }}"> Siguiente<span aria-hidden="true">&rarr;</span></a></li>
-            {% endif %}
-
-            <span class="label label-primary">
-                Pagina <span class="badge badge-pill badge-light"> {{ productos.number }} </span> de <span class="badge badge-pill badge-light">{{ productos.paginator.num_pages }}</span>
-            </span>
-        </ul>
-    </nav>
-    {% endblock %}
-</body>
+                <span class="label label-primary">
+                    Pagina <span class="badge badge-pill badge-light"> {{ productos.number }} </span> de <span class="badge badge-pill badge-light">{{ productos.paginator.num_pages }}</span>
+                </span>
+            </ul>
+        </nav>
+        {% endblock %}
+    </body>
 </html>

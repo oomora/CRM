@@ -24,9 +24,9 @@ SECRET_KEY = '+61d+c0-fr^zy)*d8(g!es6)d9zybb!_m2gxl6t1_@dvvqpm_t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Apps de Terceros
     'crispy_forms',
     'rest_framework',
+    'debug_toolbar',
     # Mis Apps
     'products', # warehouse information system
     'production', #activities project
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'djdev_panel.middleware.DebugMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,11 +60,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #Debugg Toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'warehouse.urls'
 
 CRISPY_TEMPLATE_PACK='bootstrap3'
+CRISPY_FAIL_SILENTLY = not DEBUG
 
 TEMPLATES = [
     {

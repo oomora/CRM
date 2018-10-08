@@ -23,20 +23,17 @@ def index(request):
     #if request.user == user.is_authenticated():
         #title = "Bienvenido %s" %(request.user)
     #else:
-    title = " :: CRM Index Page ::"
+    title = " :: Product Creation Page ::"
     form = ProductRegisterModelForm(request.POST or None)
-    categories = CategoryCatalogue.objects.all().order_by("id")
     # Methodo is_valid() para generar correctamente el diccionario de datos de la forma
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
         messages.success(request, 'Product saved succesfully!')
         return redirect( 'index')
-        #return render(request, 'index.html', contexto)
     else:
         contexto = {
             "title": title,
-            "categories":categories,
             "form": form,
         }
         #messages.error(request, 'Product with errors, instance not saved!')
@@ -79,7 +76,7 @@ def provider(request):
     return render(request, 'provider.html',contexto)
 
 def search(request):
-    title = ":: CRM List Products page ::"
+    title = ":: List Products Page ::"
 
     productos = ProductRegister.objects.all().order_by("id")
     paginator = Paginator(productos, 10)

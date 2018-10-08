@@ -23,8 +23,12 @@ from products import views
 
 #from views import index, contact
 #from production import views
+if settings.DEBUG:
+    import debug_toolbar
 
 urlpatterns = [
+    # Debbuger Toolbar
+    url('__debug__/', include(debug_toolbar.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
     url(r'^production/', include('production.urls'), name='production'),

@@ -2,45 +2,16 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <!--- JQuery Date Picker -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <br/>
-
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
-  </script>
-
-<!-- End of JQuery Date Picker -->
 </head>
 <body>
-     <hr/>
-     <br/>
-    {%block content%}
-    <h3>{{title}}</h3>
-    <form method="POST" action="">
-      {%csrf_token%}
-      <br>
-        <p>Fecha: <input type="text" id="datepicker"></p>
+<form method="POST" action="">
+    {%block content%}{%csrf_token%}
 
-      <br>
-     <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Categorias
-        </button>
-      <div class="dropdown-menu">
-        {% for category in categories %}
-        <a class="dropdown-item" href="#">{{category.name}}</a>
-        <div class="dropdown-divider"></div>
-        {%endfor %}
-      </div>
-    </div>
-    <br>
     {% if messages %}
       <ul class="alert alert-success" data-dismiss="alert" role="alert">
         {% for message in messages %}
@@ -48,9 +19,34 @@
         {% endfor %}
       </ul>
     {% endif %}
-    {{ form|crispy }}
-        <input type="submit" value="Enviar">
-    </form>
-    {% endblock %}
+
+    {% if form.has_errors %}
+      <ul class="alert alert-danger" data-dismiss="alert" role="alert">
+        {% for error in form.errors %}
+          <li class="{{ message.tags }}">{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{title}}</h3>
+      </div>
+      <div class="panel-body">
+        {% crispy form %}
+      </div>
+    </div>
+
+    <script type="text/javascript">
+    $(function(){
+               $("#id_fecha_ingreso").datepicker({
+            dateFormat: 'yy-mm-dd',
+            showAnim: "drop",
+            changeMonth: true
+            });
+    });
+    </script>
+</form>
+{% endblock %}
 </body>
 </html>

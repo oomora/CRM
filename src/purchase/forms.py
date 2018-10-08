@@ -21,20 +21,25 @@ class QuoteModelForm(forms.ModelForm):
         'price':'Precio',
         'rowTotal':'Subtotal',
         }
+
     def __init__(self, *args, **kwargs):
         super(QuoteModelForm,self).__init__(*args,**kwargs)
         self.helper = FormHelper()
-        self.helper.form_id = 'id_QuoteModel_form'
         self.helper.form_method = 'POST'
         self.helper.form_tag = True
+        self.helper.form_action='ListQuoteView'
         self.helper.layout = Layout(
             Div(
+                Div('quoteNumber', css_class='col-sm-1'),
                 Div('row',css_class='col-sm-1'),
                 Div('quantity',css_class='col-sm-1'),
                 Div('unity',css_class='col-md-1'),
                 Div('weight',css_class='col-md-1'),
-                Div('description',css_class='col-md-4'),
+                Div('description',css_class='col-md-3'),
                 Div('price',css_class='col-md-2'),
                 Div('rowTotal',css_class='col-md-2'), css_class = 'row'
+            ),
+            Div(
+                Submit('submit', 'Enviar', css_class='btn btn-default')
             )
         )

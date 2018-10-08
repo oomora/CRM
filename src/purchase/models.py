@@ -2,21 +2,22 @@ from __future__ import unicode_literals
 
 from django.db import models
 import datetime
+from django.utils import timezone
 
 # Create your models here.
 class Quote(models.Model):
     class Meta:
         verbose_name_plural='Quotes'
 
-    id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    id = models.AutoField(primary_key=True)
     quoteNumber = models.IntegerField(default=0)
     #provider = models.CharField() -- Actualizar con la lista de proveedores para elegir al que corresponde.
-    creationDate = models.DateField(default=datetime.datetime.now())
+    creationDate = models.DateField(default=timezone.now, blank=False)
     row = models.IntegerField(default=0)
     quantity = models.IntegerField(default=0)
     unity = models.CharField(default='Pieza', max_length=12)
     description = models.CharField(default='Descripcion del articulo', max_length=30)
-    deliveryDate = models.DateField(default=datetime.datetime.now())
+    deliveryDate = models.DateField(default=timezone.now)
     weight = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
     rowTotal = models.IntegerField(default=0)

@@ -7,7 +7,9 @@ from forms import *
 # Create your views here.
 class ActivityList(ListView):
     model= Activity
-    template_name = 'search.html'
+    queryset = Activity.objects.all()
+    context_object_name = 'activities'
+    template_name = 'listActivities.html'
 
 class ActivityCreate(CreateView):
     model = Activity
