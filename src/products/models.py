@@ -25,7 +25,7 @@ class ProductRegister(models.Model):
     #Cambiar a cantidad maxima o agregar otra para generar mas cantidades y el punto de reorden.
     cantidad_maxima    = models.IntegerField(default=0)
     punto_reorden= models.IntegerField(default=0)
-    proveedor   = models.CharField(max_length=30, blank=True,null=True)
+    #proveedor   = models.CharField(max_length=30, blank=True,null=True)
     #email       = models.EmailField()
     categoria = models.ForeignKey(CategoryCatalogue,on_delete=None, null=True, blank=False)
     sku = models.CharField(default='NA', max_length=25, blank=True, null=False)

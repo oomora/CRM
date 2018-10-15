@@ -9,7 +9,7 @@ class ProductRegisterModelForm(forms.ModelForm):
     class Meta:
         model = ProductRegister
         fields = ["nombre", "descripcion","cantidad_minima","cantidad_maxima","punto_reorden",
-                  "ubicacion","proveedor","sku", "fecha_ingreso","categoria", "image"]
+                  "ubicacion","sku", "fecha_ingreso","categoria", "image"]
 
 
     def __init__(self, *args, **kwargs):

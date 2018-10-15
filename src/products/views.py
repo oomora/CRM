@@ -8,6 +8,8 @@ from .models import ProductRegister, ProviderRegister, ContactRegister, Category
 #Pagination for the products
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
+from django.db.models import Q
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
@@ -24,7 +26,7 @@ def index(request):
         #title = "Bienvenido %s" %(request.user)
     #else:
     title = " :: Product Creation Page ::"
-    form = ProductRegisterModelForm(request.POST or None)
+    form = ProductRegisterModelForm(request.POST and request.FILES or None)
     # Methodo is_valid() para generar correctamente el diccionario de datos de la forma
     if form.is_valid():
         instance = form.save(commit=False)
@@ -97,6 +99,24 @@ def search(request):
         "productos": productos,
     }
     return render(request, 'search.html', contexto)
+
+def search_product_filter(request):
+    title = " :: List Product Query :: "
+    query_string_strip =''
+    if ('search_bar' in request.GET) and (request.GET['search_bar'].strip()):
+        query_string_strip = request.GET['search_bar']
+        if query_string_strip == '':
+            productos = ProductRegister.objects.all()
+        else:
+            productos = ProductRegister.objects.filter(Q(nombre__icontains=query_string_strip) |
+                                                Q(descripcion__icontains=query_string_strip))
+
+        contexto={
+            "title" : title,
+            "productos": productos,
+        }
+
+        return render(request, "search_product_filter.html", contexto)
 
 def searchProvider(request):
     title = ":: CRM List Provider page ::"
