@@ -37,6 +37,8 @@ urlpatterns = [
     url(r'^reports/', include('reports.urls'), name='reports'),
     url(r'^contact/$', views.contact, name='contact'),
     url(r'^search/$',views.search, name='search'),
+    # Filter from product query set
+    url(r'^search_product_filter/', views.search_product_filter, name='search_product_filter'),
     url(r'^searchProvider/$',views.searchProvider, name='searchProvider'),
     url(r'^searchContacts/$',views.searchContacts, name='searchContacts'),
     url(r'^edit/(?P<id>\d+)/$',views.edit, name='edit_product'),
