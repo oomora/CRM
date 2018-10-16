@@ -1,9 +1,0 @@
-appdirs==1.4.3
-Django==1.10.6
-django-crispy-forms==1.7.2
-djangorestframework==3.8.1
-packaging==16.8
-Pillow==5.2.0
-pyparsing==2.2.0
-reportlab==3.5.5
-six==1.10.0
